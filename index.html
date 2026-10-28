@@ -2511,6 +2511,15 @@ var qrcode = function() {
       });
     }
     document.querySelectorAll('.editable').forEach(function(el){ el.readOnly = true; });
+    try {
+      if(window.history && window.history.replaceState){
+        var viewerUrl = new URL(location.href);
+        viewerUrl.hash = '';
+        history.replaceState(null, '', viewerUrl.toString());
+      }
+    } catch (error) {
+      // Ignore URL rewrite issues; the viewer is still displayed correctly.
+    }
     document.title = 'UR Hostels — Student Hostel Card';
     document.getElementById('toolbarTitle').textContent = 'UR Hostels — Student Hostel Card';
     document.getElementById('printBtn').textContent = 'Print';
